@@ -1,4 +1,4 @@
 name: Minigames
-main: net.thelightmc.minigames.Minigames
+main: net.thelightmc.minigames.MinigamePlugin
 version: 1.0
 author: TheLightMC

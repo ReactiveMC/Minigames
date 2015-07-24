@@ -18,6 +18,7 @@ public abstract class GameModule extends ScoreboardModule {
             p.teleport(map.getSpawn());
             p.sendMessage(Language.GAME_STARTING.toString());
         });
+        sendScoreboard();
     }
     public void endGame() {
         Spectator.getPlayers().clear();
@@ -25,7 +26,6 @@ public abstract class GameModule extends ScoreboardModule {
             p.setAllowFlight(false);
             p.teleport(Minigames.getMinigames().getLobby());
         });
-        sendScoreboard();
     }
 
     public void removePlayer(GamePlayer gamePlayer) {

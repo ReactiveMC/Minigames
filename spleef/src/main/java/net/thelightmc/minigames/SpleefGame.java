@@ -4,6 +4,7 @@ import net.thelightmc.minigames.game.GameMeta;
 import net.thelightmc.minigames.game.GameModule;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.scoreboard.label.BasicLabel;
+import net.thelightmc.minigames.scoreboard.label.BlankLabel;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +17,7 @@ public class SpleefGame extends GameModule {
     public SpleefGame() {
         getScoreboard().addLabel(new BasicLabel(AQUA + BOLD.toString() + "Game",15));
         getScoreboard().addLabel(new BasicLabel("Spleef",14));
+        getScoreboard().addLabel(new BlankLabel(13));
         getScoreboard().addLabel(new BasicLabel(YELLOW + BOLD.toString() + "Map",12));
         getScoreboard().addLabel(new BasicLabel("Map loading...",11));
     }
