@@ -6,8 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Minigames extends JavaPlugin {
     @Getter private static Minigames minigames;
+    private final List<Minigame> minigameList = new ArrayList<>();
     private GameModule gameModule;
 
     @Override
@@ -25,5 +29,13 @@ public class Minigames extends JavaPlugin {
 
     public void setGameModule(GameModule gameModule) {
         this.gameModule = gameModule;
+    }
+
+    public void registerMinigame(Minigame minigame) {
+        minigameList.add(minigame);
+    }
+
+    public List<Minigame> getMinigameList() {
+        return minigameList;
     }
 }

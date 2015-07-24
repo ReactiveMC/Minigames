@@ -1,24 +1,22 @@
 package net.thelightmc.minigames.scoreboard;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.function.Consumer;
 
 public abstract class ScoreboardModule {
-    public void updateScoreboard(Consumer<? super Scoreboard> action) {
-        for (Player player : Bukkit.getOnlinePlayers())
-            action.accept(player.getScoreboard());
+    @Getter
+    private final GScoreboard scoreboard;
+
+    protected ScoreboardModule() {
+        scoreboard = new GScoreboard();
     }
-    public void updateObjective(Consumer<? super Objective> action) {
-        updateObjective(DisplaySlot.SIDEBAR,action);
+
+    public void updateScoreboard(Consumer<? super GScoreboard> action) {
+        action.accept(scoreboard);
     }
-    public void updateObjective(DisplaySlot displaySlot,Consumer<? super Objective> action) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            action.accept(player.getScoreboard().getObjective(displaySlot));
-        }
+    public void sendScoreboard() {
+        Bukkit.getOnlinePlayers().forEach(scoreboard::send);
     }
 }

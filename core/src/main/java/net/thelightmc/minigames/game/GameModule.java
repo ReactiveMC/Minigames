@@ -6,16 +6,11 @@ import net.thelightmc.minigames.Minigames;
 import net.thelightmc.minigames.lang.Language;
 import net.thelightmc.minigames.map.Map;
 import net.thelightmc.minigames.player.GamePlayer;
+import net.thelightmc.minigames.scoreboard.ScoreboardModule;
 import net.thelightmc.minigames.spectator.Spectator;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.function.Consumer;
-
-public abstract class GameModule {
+public abstract class GameModule extends ScoreboardModule {
     @Setter @Getter private Map map;
     @Setter @Getter private GameMeta gameMeta;
     public void startGame() {
@@ -30,6 +25,7 @@ public abstract class GameModule {
             p.setAllowFlight(false);
             p.teleport(Minigames.getMinigames().getLobby());
         });
+        sendScoreboard();
     }
 
     public void removePlayer(GamePlayer gamePlayer) {

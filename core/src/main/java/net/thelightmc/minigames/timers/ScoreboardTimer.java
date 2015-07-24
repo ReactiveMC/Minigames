@@ -13,6 +13,6 @@ public class ScoreboardTimer implements Runnable {
         if (module == null) {
             return;
         }
-        module.updateObjective(objective -> objective.setDisplayName(colorScroller.next()));
+        module.getScoreboard().setTitle(colorScroller.next());
     }
 }
