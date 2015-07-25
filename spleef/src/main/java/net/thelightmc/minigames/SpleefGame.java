@@ -11,10 +11,11 @@ import org.bukkit.inventory.ItemStack;
 
 import static org.bukkit.ChatColor.*;
 
-@GameMeta(description = "Players have to break blocks in order to cause" +
+@GameMeta(name = "Spleef",description = "Players have to break blocks in order to cause" +
         " the others to fall.")
 public class SpleefGame extends GameModule {
     public SpleefGame() {
+        super();
         getScoreboard().addLabel(new BasicLabel(AQUA + BOLD.toString() + "Game",15));
         getScoreboard().addLabel(new BasicLabel("Spleef",14));
         getScoreboard().addLabel(new BlankLabel(13));
@@ -30,7 +31,7 @@ public class SpleefGame extends GameModule {
         remainingPlayers = Bukkit.getOnlinePlayers().size();
     }
 
-    protected void checkEnd() {
+    private void checkEnd() {
         if (remainingPlayers < getGameMeta().minimumPlayers()) {
             endGame();
         }
@@ -40,5 +41,6 @@ public class SpleefGame extends GameModule {
     public void removePlayer(GamePlayer gamePlayer) {
         super.removePlayer(gamePlayer);
         remainingPlayers--;
+        checkEnd();
     }
 }

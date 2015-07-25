@@ -1,33 +1,45 @@
 package net.thelightmc.minigames.timers;
 
+import lombok.Setter;
 import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.Minigames;
 import net.thelightmc.minigames.game.GameModule;
 import net.thelightmc.minigames.lang.Language;
 import org.bukkit.Bukkit;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class GameTimer implements Runnable {
-    int ctr = 60;
+    private static int RESET_TIME = 20;
+    private final Minigame minigame;
+    @Setter private int id;
+    int ctr = RESET_TIME;
+
+    public GameTimer(Minigame minigame) {
+        this.minigame = minigame;
+    }
+
     @Override
     public void run() {
-        Minigames minigames = Minigames.getMinigames();
-        GameModule module = minigames.getGameModule();
-        if (module != null) {
-            //This means the game is running and shouldn't be doing anything
+        if (Bukkit.getOnlinePlayers().size() < minigame.getGameModule().getGameMeta().minimumPlayers()) {
             return;
+        }
+        if (ctr == RESET_TIME) {
+            Bukkit.broadcastMessage(Language.GAME_INFO_ANNOUNCEMENT.getMsg());
         }
         ctr--;
         if (ctr <= 0) {
-            ctr = 60;
-            Minigame minigame = minigames.getMinigameList().get(ThreadLocalRandom.current().
-                    nextInt(minigames.getMinigameList().size()));
-            minigames.startMinigame(minigame);
+            ctr = RESET_TIME;
+            Bukkit.getPluginManager().registerEvents(minigame.getGameListener(), Minigames.getMinigames().getPlugin());
+            minigame.getGameModule().startGame();
+            Bukkit.getScheduler().cancelTask(id);
             return;
         }
-        if (ctr % 10 == 0 || ctr <= 10) {
-            Bukkit.broadcastMessage(Language.TIMER_REMAINING.getMsg());
+        if (ctr % 10 == 0 || ctr <= 3) {
+            Bukkit.broadcastMessage(Language.TIMER_REMAINING.getMsg().replace("{REMAINING}",String.valueOf(ctr)));
         }
     }
+    /*
+        gameModule = minigame.getGameModule();
+        Bukkit.getPluginManager().registerEvents(minigame.getGameListener(),plugin);
+        gameModule.startGame();
+     */
 }

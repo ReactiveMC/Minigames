@@ -2,6 +2,7 @@ package net.thelightmc.minigames;
 
 import lombok.Getter;
 import net.thelightmc.minigames.game.GameModule;
+import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.timers.GameTimer;
 import net.thelightmc.minigames.timers.ScoreboardTimer;
 import org.bukkit.Bukkit;
@@ -23,7 +24,7 @@ public class Minigames {
 
     public void onEnable() {
         minigames = this;
-        Bukkit.getScheduler().runTaskTimer(plugin, new GameTimer(),20,20);
+        MapLoader.setPath(plugin.getDataFolder().getPath());
         Bukkit.getScheduler().runTaskTimer(plugin, new ScoreboardTimer(),20,20);
     }
 
@@ -40,8 +41,11 @@ public class Minigames {
     }
 
     public void startMinigame(Minigame minigame) {
-        gameModule = minigame.getGameModule();
-        Bukkit.getPluginManager().registerEvents(minigame.getGameListener(),plugin);
-        gameModule.startGame();
+        GameTimer timer = new GameTimer(minigame);
+        timer.setId(Bukkit.getScheduler().runTaskTimer(plugin, timer,20,20).getTaskId());
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
     }
 }

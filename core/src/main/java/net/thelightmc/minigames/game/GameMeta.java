@@ -6,5 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GameMeta {
     int minimumPlayers() default 2;
+    String name();
     String description();
 }

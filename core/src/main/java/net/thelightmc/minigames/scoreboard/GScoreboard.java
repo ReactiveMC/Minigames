@@ -15,6 +15,7 @@ public final class GScoreboard {
     protected GScoreboard() {
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         scoreboard.registerNewObjective("side","dummy");
+        scoreboard.getObjective("side").setDisplaySlot(DisplaySlot.SIDEBAR);
     }
     public void setTitle(String name) {
         scoreboard.getObjective(DisplaySlot.SIDEBAR).setDisplayName(
