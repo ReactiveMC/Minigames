@@ -23,7 +23,7 @@
 ### Game Ideas:
 * None ;(
 
-### How to compile:
+### How to use:
 ```
 1. Type in mvn.
 2. Grab the jar from the module named "plugin"
