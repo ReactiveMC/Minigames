@@ -1,6 +1,7 @@
 package net.thelightmc.minigames.spectator;
 
 import net.thelightmc.minigames.player.GamePlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -13,7 +14,13 @@ public class Spectator {
         Player bukkitPlayer = gamePlayer.getPlayer().get();
         bukkitPlayer.setAllowFlight(true);
         bukkitPlayer.teleport(gamePlayer.getGame().getMap().getSpawn());
+        Bukkit.getOnlinePlayers().forEach(p -> hide(bukkitPlayer,p));
     }
+
+    private void hide(Player bukkitPlayer, Player p) {
+        bukkitPlayer.hidePlayer(p);
+    }
+
     private final static Set<UUID> PLAYERS = new HashSet<>();
 
     public static Set<UUID> getPlayers() {

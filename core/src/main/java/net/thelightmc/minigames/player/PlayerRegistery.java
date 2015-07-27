@@ -3,6 +3,7 @@ package net.thelightmc.minigames.player;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -19,9 +20,13 @@ public class PlayerRegistery {
         return getPlayer(Bukkit.getPlayer(uuid));
     }
     public static void registerPlayer(GamePlayer gamePlayer) {
-        REGISTERY.remove(gamePlayer.getPlayer().get().getName());
+        REGISTERY.put(gamePlayer.getPlayer().get().getName(), gamePlayer);
     }
     public static void unregisterPlayer(GamePlayer gamePlayer) {
         REGISTERY.remove(gamePlayer.getPlayer().get().getName());
+    }
+
+    public static Collection<? extends GamePlayer> getPlayers() {
+        return REGISTERY.values();
     }
 }

@@ -10,6 +10,8 @@ import java.util.UUID;
 public class GamePlayer {
     private final UUID uuid;
     private GameModule game;
+    private boolean editing;
+
     public GamePlayer(UUID uuid) {
         this.uuid = uuid;
     }
@@ -36,5 +38,13 @@ public class GamePlayer {
 
     public void removeFromGame() {
         game.removePlayer(this);
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
+    }
+
+    public boolean isEditing() {
+        return editing;
     }
 }

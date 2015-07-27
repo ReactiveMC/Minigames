@@ -3,6 +3,7 @@ package net.thelightmc.minigames.timers;
 import lombok.Setter;
 import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.Minigames;
+import net.thelightmc.minigames.game.GameListener;
 import net.thelightmc.minigames.game.GameModule;
 import net.thelightmc.minigames.lang.Language;
 import org.bukkit.Bukkit;
@@ -15,21 +16,26 @@ public class GameTimer implements Runnable {
 
     public GameTimer(Minigame minigame) {
         this.minigame = minigame;
+        minigame.getGameModule().load();
     }
 
     @Override
     public void run() {
-        if (Bukkit.getOnlinePlayers().size() < minigame.getGameModule().getGameMeta().minimumPlayers()) {
+        GameModule gameModule = minigame.getGameModule();
+        if (Bukkit.getOnlinePlayers().size() < gameModule.getGameMeta().minimumPlayers()) {
             return;
         }
         if (ctr == RESET_TIME) {
-            Bukkit.broadcastMessage(Language.GAME_INFO_ANNOUNCEMENT.getMsg());
+            Bukkit.broadcastMessage(Language.GAME_INFO_ANNOUNCEMENT.getMsg().replace("{GAME_NAME}",gameModule.getGameMeta().name()).replace("{MAP_NAME}",gameModule.getMap().getName()));
+            gameModule.sendScoreboard();
         }
         ctr--;
         if (ctr <= 0) {
             ctr = RESET_TIME;
-            Bukkit.getPluginManager().registerEvents(minigame.getGameListener(), Minigames.getMinigames().getPlugin());
-            minigame.getGameModule().startGame();
+            GameListener listener = minigame.getGameListener();
+            Bukkit.getPluginManager().registerEvents(listener, Minigames.getMinigames().getPlugin());
+            listener.setMap(gameModule.getMap());
+            gameModule.startGame();
             Bukkit.getScheduler().cancelTask(id);
             return;
         }

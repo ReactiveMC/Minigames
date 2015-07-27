@@ -1,7 +1,7 @@
 package net.thelightmc.minigames.timers;
 
+import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.Minigames;
-import net.thelightmc.minigames.game.GameModule;
 import net.thelightmc.minigames.lang.Language;
 import net.thelightmc.minigames.utils.ColorScroller;
 
@@ -9,10 +9,10 @@ public class ScoreboardTimer implements Runnable {
     private final ColorScroller colorScroller = new ColorScroller(Language.SCOREBOARD_TITLE.getMsg());
     @Override
     public void run() {
-        GameModule module = Minigames.getMinigames().getGameModule();
+        Minigame module = Minigames.getMinigames().getMinigame();
         if (module == null) {
             return;
         }
-        module.getScoreboard().setTitle(colorScroller.next());
+        module.getGameModule().getScoreboard().setTitle(colorScroller.next());
     }
 }

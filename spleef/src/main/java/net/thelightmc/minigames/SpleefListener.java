@@ -4,22 +4,18 @@ import net.thelightmc.minigames.game.GameListener;
 import net.thelightmc.minigames.player.PlayerRegistery;
 import net.thelightmc.minigames.spectator.Spectator;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.util.BlockIterator;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class SpleefListener extends GameListener {
-    protected SpleefListener() {
-    }
     @Override
     public boolean allowChat() {
         return true;
@@ -74,23 +70,19 @@ public class SpleefListener extends GameListener {
                 block.getType(), block.getData());
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings(value = "unused")
     @EventHandler
-    public void onSnowballHit(ProjectileHitEvent event) {
-        Projectile ent = event.getEntity();
-        if (!(ent instanceof Snowball)) {
-            return;
-        }
-        World world = ent.getWorld();
-        BlockIterator bi = new BlockIterator(world, ent.getLocation().toVector(), ent.getVelocity().normalize(), 0, 4);
-        Block b;
-        while (bi.hasNext()) {
-            b = bi.next();
-            if (b.getType() == Material.AIR) {
-                break;
+    public void onBlockLand(EntityChangeBlockEvent event) {
+        if(event.getEntity() instanceof FallingBlock) {
+            FallingBlock fallingBlock = (FallingBlock) event.getEntity();
+            if(event.getBlock().getType() == Material.AIR){
+                new BukkitRunnable(){
+                    @Override
+                    public void run(){
+                        fallingBlock.getLocation().getBlock().setType(Material.AIR);
+                    }
+                }.runTaskLater(Minigames.getMinigames().getPlugin(), 1L);
             }
-            b.getWorld().spawnFallingBlock(b.getLocation(),b.getType(),b.getData());
-            b.setType(Material.AIR);
         }
     }
 }

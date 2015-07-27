@@ -12,11 +12,10 @@ public final class GameLocation implements Serializable {
     private final int x;
     private final int y;
     private final int z;
-    private final String worldName;
+    private final static String worldName = "GameWorld";
 
     public GameLocation(Location location) {
         this.location = location;
-        worldName = location.getWorld().getName();
         x = location.getBlockX();
         y = location.getBlockY();
         z = location.getBlockZ();

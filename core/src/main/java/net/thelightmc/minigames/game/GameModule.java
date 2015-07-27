@@ -7,9 +7,11 @@ import net.thelightmc.minigames.lang.Language;
 import net.thelightmc.minigames.map.Map;
 import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.player.GamePlayer;
+import net.thelightmc.minigames.player.PlayerRegistery;
 import net.thelightmc.minigames.scoreboard.ScoreboardModule;
 import net.thelightmc.minigames.spectator.Spectator;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 
 public abstract class GameModule extends ScoreboardModule {
     public GameModule() {
@@ -18,15 +20,16 @@ public abstract class GameModule extends ScoreboardModule {
     }
     @Setter @Getter private Map map;
     @Setter @Getter private GameMeta gameMeta;
+    @Setter @Getter private boolean running;
     public void startGame() {
-        map = MapLoader.get().loadRandomMap(gameMeta.name());
         Bukkit.broadcastMessage(Language.GAME_STARTING.getMsg());
-        Bukkit.getScheduler().runTaskLater(Minigames.getMinigames().getPlugin(), new Runnable() {
-            @Override
-            public void run() {
-                Bukkit.getOnlinePlayers().forEach(p -> p.teleport(map.getSpawn()));
-            }
-        }, 20);
+        Bukkit.getOnlinePlayers().forEach(p -> {
+            p.teleport(map.getSpawn());
+            p.setGameMode(GameMode.SURVIVAL);
+            p.setHealth(20);
+            p.setSaturation(20);
+        });
+        PlayerRegistery.getPlayers().forEach(gamePlayer -> gamePlayer.setGame(this));
         sendScoreboard();
     }
     public void endGame() {
@@ -34,10 +37,17 @@ public abstract class GameModule extends ScoreboardModule {
         Bukkit.getOnlinePlayers().forEach(p -> {
             p.setAllowFlight(false);
             p.teleport(Minigames.getMinigames().getLobby());
+            p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+            Bukkit.getOnlinePlayers().forEach(oPlayer -> oPlayer.showPlayer(p)); //Ew but not sure how else to do it D:
         });
+        PlayerRegistery.getPlayers().forEach(g -> g.setGame(null));
+        Minigames.getMinigames().getMinigame().getGameListener().disable();
+        Minigames.getMinigames().setMinigame(null);
     }
 
-    public void removePlayer(GamePlayer gamePlayer) {
-        new Spectator(gamePlayer);
+    public abstract void removePlayer(GamePlayer gamePlayer);
+
+    public void load() {
+        map = MapLoader.get().loadRandomMap(gameMeta.name());
     }
 }
