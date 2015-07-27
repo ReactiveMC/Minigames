@@ -25,7 +25,7 @@
 
 ### How to use:
 ```
-1. Type in mvn.
+1. Compile using maven.
 2. Grab the jar from the module named "plugin"
 3. Put the jar into the server.
 4. Install a template map into the plugins/Minigames folder (Optional)
