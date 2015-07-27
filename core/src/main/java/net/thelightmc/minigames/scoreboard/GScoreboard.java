@@ -40,6 +40,14 @@ public final class GScoreboard {
         }
         addLabel(label);
     }
+    public ScoreboardLabel getLabel(String s) {
+        for (ScoreboardLabel scoreboardLabel : scoreLabels.values()) {
+            if (scoreboardLabel.getText().equalsIgnoreCase(s)) {
+                return scoreboardLabel;
+            }
+        }
+        return null;
+    }
     public void send(Player player) {
         player.setScoreboard(scoreboard);
     }

@@ -8,15 +8,18 @@ import net.thelightmc.minigames.map.Map;
 import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
-import net.thelightmc.minigames.scoreboard.ScoreboardModule;
 import net.thelightmc.minigames.spectator.Spectator;
+import net.thelightmc.minigames.scoreboard.ScoreboardModule;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+
 
 public abstract class GameModule extends ScoreboardModule {
     public GameModule() {
         super();
         setGameMeta(this.getClass().getDeclaredAnnotation(GameMeta.class));
+        getScoreboard().setTitle(ChatColor.GREEN + ChatColor.BOLD.toString() + getGameMeta().name());
     }
     @Setter @Getter private Map map;
     @Setter @Getter private GameMeta gameMeta;
@@ -45,7 +48,9 @@ public abstract class GameModule extends ScoreboardModule {
         Minigames.getMinigames().setMinigame(null);
     }
 
-    public abstract void removePlayer(GamePlayer gamePlayer);
+    public void removePlayer(GamePlayer gamePlayer) {
+        new Spectator(gamePlayer);
+    }
 
     public void load() {
         map = MapLoader.get().loadRandomMap(gameMeta.name());

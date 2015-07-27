@@ -11,6 +11,7 @@ public class GamePlayer {
     private final UUID uuid;
     private GameModule game;
     private boolean editing;
+    private String name;
 
     public GamePlayer(UUID uuid) {
         this.uuid = uuid;
@@ -46,5 +47,9 @@ public class GamePlayer {
 
     public boolean isEditing() {
         return editing;
+    }
+
+    public String getName() {
+        return name;
     }
 }

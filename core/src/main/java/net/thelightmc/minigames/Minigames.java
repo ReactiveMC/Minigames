@@ -2,12 +2,12 @@ package net.thelightmc.minigames;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.thelightmc.minigames.listeners.EditListener;
 import net.thelightmc.minigames.commands.CmdGame;
 import net.thelightmc.minigames.commands.sub.CmdCancel;
 import net.thelightmc.minigames.commands.sub.CmdEdit;
 import net.thelightmc.minigames.commands.sub.CmdSavemap;
 import net.thelightmc.minigames.listeners.CoreListener;
-import net.thelightmc.minigames.listeners.EditListener;
 import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.timers.GameTimer;
 import net.thelightmc.minigames.timers.ScoreboardTimer;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Minigames {
     @Getter private static Minigames minigames;
     @Getter @Setter private Minigame minigame;
-    @Getter @SuppressWarnings("all")private final List<Minigame> minigameList = new ArrayList<>();
+    @Getter @SuppressWarnings("all") private final List<Minigame> minigameList = new ArrayList<>();
     @Getter private final JavaPlugin plugin;
 
     public Minigames(JavaPlugin plugin) {

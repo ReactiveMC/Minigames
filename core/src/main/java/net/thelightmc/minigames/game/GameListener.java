@@ -77,7 +77,6 @@ public abstract class GameListener implements Listener {
             case HANDLED:
                 return;
             case RESPAWN:
-                event.getEntity().spigot().respawn();
                 break;
         }
     }
@@ -90,7 +89,7 @@ public abstract class GameListener implements Listener {
             if (Spectator.isSpectating(event.getPlayer())) {
                 return;
             }
-            PlayerRegistery.getPlayer(event.getPlayer()).removeFromGame();
+            event.getPlayer().setHealth(0);
         }
     }
     @EventHandler

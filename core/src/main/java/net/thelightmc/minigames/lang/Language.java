@@ -30,7 +30,7 @@ public enum Language {
         String s = msg;
         for (Tag tag : Tag.values()) {
             if (this.getMsg().contains(tag.getReplacement())) {
-                s = s.replace(tag.getReplacement(), TagReplacer.getReplacement(tag,gamePlayer));
+                s = s.replace(tag.getReplacement(), TagReplacer.getReplacement(tag, gamePlayer));
             }
         }
         return s;

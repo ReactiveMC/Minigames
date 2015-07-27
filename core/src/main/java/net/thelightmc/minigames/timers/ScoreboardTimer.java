@@ -1,8 +1,8 @@
 package net.thelightmc.minigames.timers;
 
-import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.Minigames;
 import net.thelightmc.minigames.lang.Language;
+import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.utils.ColorScroller;
 
 public class ScoreboardTimer implements Runnable {

@@ -1,8 +1,8 @@
 package net.thelightmc.minigames;
 
 import lombok.Getter;
-import net.thelightmc.minigames.game.GameListener;
 import net.thelightmc.minigames.game.GameModule;
+import net.thelightmc.minigames.game.GameListener;
 
 @SuppressWarnings("unused")
 public abstract class Minigame {

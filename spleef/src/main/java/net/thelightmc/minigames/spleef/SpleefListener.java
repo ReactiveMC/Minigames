@@ -1,8 +1,9 @@
-package net.thelightmc.minigames;
+package net.thelightmc.minigames.spleef;
 
-import net.thelightmc.minigames.game.GameListener;
+import net.thelightmc.minigames.Minigames;
 import net.thelightmc.minigames.player.PlayerRegistery;
 import net.thelightmc.minigames.spectator.Spectator;
+import net.thelightmc.minigames.game.GameListener;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
@@ -38,7 +39,7 @@ public class SpleefListener extends GameListener {
 
     @Override
     public boolean allowEntityDamage() {
-        return false;
+        return true;
     }
 
     @Override

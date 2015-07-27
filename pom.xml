@@ -12,6 +12,7 @@
     <modules>
         <module>core</module>
         <module>spleef</module>
+        <module>oitc</module>
         <module>plugin</module>
     </modules>
     <dependencies>

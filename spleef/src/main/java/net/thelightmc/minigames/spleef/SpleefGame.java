@@ -1,4 +1,4 @@
-package net.thelightmc.minigames;
+package net.thelightmc.minigames.spleef;
 
 import net.thelightmc.minigames.game.GameMeta;
 import net.thelightmc.minigames.game.GameModule;
@@ -18,7 +18,6 @@ import static org.bukkit.ChatColor.*;
 public class SpleefGame extends GameModule {
     public SpleefGame() {
         super();
-        getScoreboard().setTitle(GREEN + BOLD.toString() + getGameMeta().name());
         getScoreboard().addLabel(new BasicLabel(AQUA + BOLD.toString() + "Game",15));
         getScoreboard().addLabel(new BasicLabel("Spleef",14));
         getScoreboard().addLabel(new BlankLabel(13));

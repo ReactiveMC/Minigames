@@ -1,11 +1,11 @@
 package net.thelightmc.minigames.timers;
 
 import lombok.Setter;
-import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.Minigames;
+import net.thelightmc.minigames.lang.Language;
+import net.thelightmc.minigames.Minigame;
 import net.thelightmc.minigames.game.GameListener;
 import net.thelightmc.minigames.game.GameModule;
-import net.thelightmc.minigames.lang.Language;
 import org.bukkit.Bukkit;
 
 public class GameTimer implements Runnable {
@@ -26,6 +26,18 @@ public class GameTimer implements Runnable {
             return;
         }
         if (ctr == RESET_TIME) {
+            if (gameModule.getGameMeta() == null) {
+                Bukkit.broadcastMessage("null");
+                return;
+            }
+            if (gameModule.getGameMeta().name() == null) {
+                Bukkit.broadcastMessage("null name");
+                return;
+            }
+            if (gameModule.getMap() == null) {
+                Bukkit.broadcastMessage("mofo");
+                return;
+            }
             Bukkit.broadcastMessage(Language.GAME_INFO_ANNOUNCEMENT.getMsg().replace("{GAME_NAME}",gameModule.getGameMeta().name()).replace("{MAP_NAME}",gameModule.getMap().getName()));
             gameModule.sendScoreboard();
         }
