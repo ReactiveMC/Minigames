@@ -13,12 +13,12 @@ public class Spectator {
         PLAYERS.add(gamePlayer.getUniqueID());
         Player bukkitPlayer = gamePlayer.getPlayer().get();
         bukkitPlayer.setAllowFlight(true);
-        bukkitPlayer.teleport(gamePlayer.getGame().getMap().getSpawn());
+        bukkitPlayer.teleport(gamePlayer.getGame().getMap().getRandomSpawn());
         Bukkit.getOnlinePlayers().forEach(p -> hide(bukkitPlayer,p));
     }
 
     private void hide(Player bukkitPlayer, Player p) {
-        bukkitPlayer.hidePlayer(p);
+        p.hidePlayer(bukkitPlayer);
     }
 
     private final static Set<UUID> PLAYERS = new HashSet<>();

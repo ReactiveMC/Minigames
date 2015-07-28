@@ -16,7 +16,7 @@ public class Map implements Serializable {
     private final String builder;
     private final List<GameLocation> spawnPoints;
     private final int minumumY;
-    public Location getSpawn() {
+    public Location getRandomSpawn() {
         return spawnPoints.get(ThreadLocalRandom.current().nextInt(spawnPoints.size())).getLocation();
     }
     public Map(String name,String builder, List<GameLocation> spawns) {

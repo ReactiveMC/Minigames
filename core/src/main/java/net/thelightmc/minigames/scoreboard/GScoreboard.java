@@ -51,4 +51,8 @@ public final class GScoreboard {
     public void send(Player player) {
         player.setScoreboard(scoreboard);
     }
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
+    }
 }

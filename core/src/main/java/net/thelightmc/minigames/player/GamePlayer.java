@@ -1,6 +1,7 @@
 package net.thelightmc.minigames.player;
 
 import net.thelightmc.minigames.game.GameModule;
+import net.thelightmc.minigames.team.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,10 +12,12 @@ public class GamePlayer {
     private final UUID uuid;
     private GameModule game;
     private boolean editing;
-    private String name;
+    private final String name;
+    private Team team;
 
     public GamePlayer(UUID uuid) {
         this.uuid = uuid;
+        name = getPlayer().get().getName();
     }
 
     public Optional<Player> getPlayer() {
@@ -38,6 +41,7 @@ public class GamePlayer {
     }
 
     public void removeFromGame() {
+        if (game == null) {return;}
         game.removePlayer(this);
     }
 
@@ -51,5 +55,13 @@ public class GamePlayer {
 
     public String getName() {
         return name;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
     }
 }

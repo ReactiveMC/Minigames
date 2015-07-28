@@ -1,9 +1,8 @@
 package net.thelightmc.minigames;
 
-import net.thelightmc.minigames.oitc.OITC;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
-import net.thelightmc.minigames.spleef.Spleef;
+import net.thelightmc.minigames.tdm.TDM;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,7 +17,8 @@ public class MinigamePlugin extends JavaPlugin {
         minigames = new Minigames(this);
         minigames.onEnable();
         //minigames.registerMinigame(new Spleef());
-        minigames.registerMinigame(new OITC());
+        //minigames.registerMinigame(new OITC());
+        minigames.registerMinigame(new TDM());
 
         getServer().getScheduler().runTaskLater(this, () -> Bukkit.getOnlinePlayers().forEach(p -> PlayerRegistery.registerPlayer(new GamePlayer(p.getUniqueId()))),5);
     }

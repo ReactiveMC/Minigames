@@ -2,6 +2,7 @@ package net.thelightmc.minigames.game;
 
 import lombok.Setter;
 import net.thelightmc.minigames.map.Map;
+import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
 import net.thelightmc.minigames.spectator.Spectator;
 import org.bukkit.block.Block;
@@ -95,6 +96,14 @@ public abstract class GameListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         PlayerRegistery.getPlayer(event.getPlayer()).removeFromGame();
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        GamePlayer player = PlayerRegistery.getPlayer(event.getPlayer());
+        if (Spectator.isSpectating(player)) {
+            event.setRespawnLocation(player.getGame().getMap().getRandomSpawn());
+        }
     }
 
     public void disable() {

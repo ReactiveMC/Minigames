@@ -18,13 +18,16 @@ public final class ColorScroller {
         if (pos > message.length()) {
             pos=0;
         }
-        return insertIntoString(pos);
+        return ChatColor.translateAlternateColorCodes('&',insertIntoString(pos));
     }
     private String insertIntoString(int index) {
         char[] chars = message.toCharArray();
         chars = Arrays.copyOf(chars, chars.length + 1);
         System.arraycopy(chars, index, chars, index + 1, chars.length - index - 1);
         chars[index] = PRIMARY_COLOR.getChar();
+        chars = Arrays.copyOf(chars, chars.length + 1);
+        System.arraycopy(chars, index, chars, index + 1, chars.length - index - 1);
+        chars[index] = '&';
         return new String(chars);
     }
 }

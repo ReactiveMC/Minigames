@@ -58,6 +58,7 @@ public class OITCListener extends GameListener {
     }
 
     @Override
+    @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.getDrops().clear();
         event.setDeathMessage("");
