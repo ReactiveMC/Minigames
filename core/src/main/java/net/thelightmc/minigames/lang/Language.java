@@ -13,7 +13,8 @@ public enum Language {
     SCOREBOARD_TITLE("&f&lMinigames"),
     TIMER_REMAINING("&f&lThe next game is starting in &6&l{REMAINING} &f&lseconds."),
     ADDED_TO_TEAM("&eYou have been added to the {TEAM_NAME} team."),
-    TEAM_WON("&c&lWinner - {TEAM_NAME}");
+    PLAYER_WON("&a&n--------------------------------\n\n&c&lThe player &6&l{PLAYER_NAME} &c&lhas won!\n\n&a&n--------------------------------"),
+    TEAM_WON("&a&n--------------------------------\n\n&c&lThe team {TEAM_NAME} &c&lhas won!\n\n&a&n--------------------------------");
     public enum Tag {
         GAME_NAME,MAP_NAME;
         private String getReplacement() {

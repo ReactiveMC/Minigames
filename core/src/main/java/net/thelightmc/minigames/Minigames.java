@@ -17,10 +17,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Minigames {
     @Getter private static Minigames minigames;
-    @Getter @Setter private Minigame minigame;
+    @Getter private Minigame minigame;
     @Getter @SuppressWarnings("all") private final List<Minigame> minigameList = new ArrayList<>();
     @Getter private final JavaPlugin plugin;
 
@@ -50,5 +51,13 @@ public class Minigames {
         setMinigame(minigame);
         GameTimer timer = new GameTimer(minigame);
         timer.setId(Bukkit.getScheduler().runTaskTimer(plugin, timer,20,20).getTaskId());
+    }
+
+    public void setMinigame(Minigame minigame) {
+        this.minigame = minigame;
+        if (this.minigame == null) {
+            //assume the game is ending and restart it.
+            startMinigame(getMinigameList().get(ThreadLocalRandom.current().nextInt(getMinigameList().size())));
+        }
     }
 }
