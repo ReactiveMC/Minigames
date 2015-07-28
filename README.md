@@ -2,13 +2,13 @@
 ## The start of my Minigames plugin that will contain multiple games
 #### Game List:
 * Spleef
+* TDM
 
 #### Todo: 
 * OITC (In Progress)
 * Automatically start games
-* Teams!
 * Better command fraework
-* Fix scoreboard automatic updating/ad obby scoreboard
+* Fix scoreboard automatic updating/and lobby scoreboard
 
 ### Completed:
 * Map loading
@@ -19,6 +19,7 @@
 * Player wrapper/registery (If anyone really cares about this)
 * Scoring
 * Scoreboard updating
+* Teams
 
 ### Game Ideas:
 * None ;(
