@@ -3,12 +3,12 @@
 #### Game List:
 * Spleef
 * TDM
+* Splegg
 
 #### Todo: 
 * OITC (In Progress)
-* Automatically start games
-* Better command fraework
-* Fix scoreboard automatic updating/and lobby scoreboard
+* Skywars (In Progress)
+* Classes
 
 ### Completed:
 * Map loading
@@ -20,6 +20,8 @@
 * Scoring
 * Scoreboard updating
 * Teams
+* Automatically start games
+* Commands
 
 ### Game Ideas:
 * None ;(
