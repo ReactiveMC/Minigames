@@ -36,7 +36,7 @@ public class GameTimer implements Runnable {
             Bukkit.getPluginManager().registerEvents(listener, Minigames.getMinigames().getPlugin());
             listener.setMap(gameModule.getMap());
             gameModule.startGame();
-            Bukkit.getScheduler().cancelTask(id);
+            cancel();
             return;
         }
         if (ctr % 10 == 0 || ctr <= 3) {
@@ -52,4 +52,7 @@ public class GameTimer implements Runnable {
         Bukkit.getPluginManager().registerEvents(minigame.getGameListener(),plugin);
         gameModule.startGame();
      */
+    public void cancel() {
+        Bukkit.getScheduler().cancelTask(id);
+    }
 }

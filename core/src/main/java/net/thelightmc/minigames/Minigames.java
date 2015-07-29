@@ -6,6 +6,7 @@ import net.thelightmc.minigames.commands.sub.*;
 import net.thelightmc.minigames.listeners.CoreListener;
 import net.thelightmc.minigames.listeners.EditListener;
 import net.thelightmc.minigames.map.MapLoader;
+import net.thelightmc.minigames.menu.MenuAPI;
 import net.thelightmc.minigames.timers.GameTimer;
 import net.thelightmc.minigames.timers.ScoreboardTimer;
 import org.bukkit.Bukkit;
@@ -28,18 +29,27 @@ public class Minigames {
 
     public Minigames(JavaPlugin plugin) {
         this.plugin = plugin;
+        minigames = this;
+        MapLoader.setPath(plugin.getDataFolder().getPath());
     }
 
     public void onEnable() {
-        minigames = this;
-        EditListener editListener = new EditListener();
-        plugin.getCommand("game").setExecutor(new CmdGame(new CmdEdit(),new CmdSavemap(editListener), new CmdCancel(editListener), new CmdEnd(), new CmdStart()));
-        Bukkit.getPluginManager().registerEvents(new CoreListener(), plugin);
-        Bukkit.getPluginManager().registerEvents(editListener,plugin); //TODO: Change this
-        MapLoader.setPath(plugin.getDataFolder().getPath());
-        Bukkit.getScheduler().runTaskTimer(plugin, new ScoreboardTimer(), 10, 10);
+        //Schedulers
         startMinigame(getMinigameList().get(ThreadLocalRandom.current().nextInt(getMinigameList().size())));
+        Bukkit.getScheduler().runTaskTimer(plugin, new ScoreboardTimer(), 10, 10);
+
+
+        //Editing
+        EditListener editListener = new EditListener();
+        plugin.getCommand("game").setExecutor(new CmdGame(new CmdEdit(), new CmdSavemap(editListener), new CmdCancel(editListener), new CmdEnd(),
+                new CmdStart(), new CmdSelect()));
+
+        //Listeners
+        Bukkit.getPluginManager().registerEvents(new CoreListener(), plugin);
+        Bukkit.getPluginManager().registerEvents(editListener, plugin); //TODO: Change this
+        Bukkit.getPluginManager().registerEvents(MenuAPI.getMenuAPI(),plugin);
     }
+
     void onDisable() {
         minigames = null;
         minigameList.forEach(Minigame::onDisable);
@@ -53,7 +63,7 @@ public class Minigames {
         minigameList.add(minigame);
     }
 
-    private void startMinigame(Minigame minigame) {
+    public void startMinigame(Minigame minigame) {
         setMinigame(minigame);
         timer = new GameTimer(minigame);
         timer.setId(Bukkit.getScheduler().runTaskTimer(plugin, timer, 20, 20).getTaskId());
