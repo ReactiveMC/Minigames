@@ -1,5 +1,7 @@
 package net.thelightmc.minigames.scoreboard;
 
+import net.thelightmc.minigames.scoreboard.label.BasicLabel;
+import net.thelightmc.minigames.scoreboard.label.BlankLabel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -7,6 +9,10 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.HashMap;
+
+import static org.bukkit.ChatColor.BOLD;
+import static org.bukkit.ChatColor.RED;
+import static org.bukkit.ChatColor.YELLOW;
 
 public final class GScoreboard {
     private final Scoreboard scoreboard;

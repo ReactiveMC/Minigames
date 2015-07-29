@@ -1,5 +1,6 @@
 package net.thelightmc.minigames.commands.sub;
 
+import net.thelightmc.minigames.commands.PermissionLevel;
 import net.thelightmc.minigames.commands.SubCommand;
 import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.player.GamePlayer;
@@ -12,12 +13,13 @@ import org.bukkit.entity.Player;
 public class CmdEdit extends SubCommand {
     public CmdEdit() {
         super("edit");
+        this.setPermissionLevel(PermissionLevel.ADMIN);
     }
     @Override
     protected void execute(String[] args, GamePlayer gamePlayer) {
-        if (args.length > 2) {
-            String game = args[1];
-            String map = args[2];
+        if (args.length > 1) {
+            String game = args[0];
+            String map = args[1];
             Player player = gamePlayer.getPlayer().get();
             if (!MapLoader.get().isMap(game,map)) {
                 if (!MapLoader.get().createMap(game,map)) {

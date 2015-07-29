@@ -5,6 +5,7 @@ import net.thelightmc.minigames.Minigames;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
 import net.thelightmc.minigames.utils.RespawnUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -50,11 +51,13 @@ public class CoreListener implements Listener {
     }
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        try {
-            RespawnUtil.autoRespawnPlayer(event.getEntity());
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
-        }
+        Bukkit.getScheduler().runTaskLater(Minigames.getMinigames().getPlugin(), () -> {
+            try {
+                RespawnUtil.autoRespawnPlayer(event.getEntity());
+            } catch (ReflectiveOperationException e) {
+                e.printStackTrace();
+            }
+        },5);
     }
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {

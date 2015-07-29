@@ -58,4 +58,8 @@ public final class Team {
         playerList.remove(gamePlayer);
         team.removePlayer(gamePlayer.getPlayer().get());
     }
+
+    public int getSize() {
+        return getPlayers().size();
+    }
 }

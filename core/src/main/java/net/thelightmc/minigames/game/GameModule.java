@@ -8,6 +8,9 @@ import net.thelightmc.minigames.map.Map;
 import net.thelightmc.minigames.map.MapLoader;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
+import net.thelightmc.minigames.scoreboard.ScoreboardLabel;
+import net.thelightmc.minigames.scoreboard.label.BasicLabel;
+import net.thelightmc.minigames.scoreboard.label.BlankLabel;
 import net.thelightmc.minigames.spectator.Spectator;
 import net.thelightmc.minigames.scoreboard.ScoreboardModule;
 import org.bukkit.Bukkit;
@@ -15,12 +18,21 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
+import static org.bukkit.ChatColor.AQUA;
+import static org.bukkit.ChatColor.BOLD;
+import static org.bukkit.ChatColor.YELLOW;
+
 
 public abstract class GameModule extends ScoreboardModule {
     public GameModule() {
         super();
         setGameMeta(this.getClass().getDeclaredAnnotation(GameMeta.class));
         getScoreboard().setTitle(ChatColor.GREEN + ChatColor.BOLD.toString() + getGameMeta().name());
+        getScoreboard().addLabel(new BasicLabel(AQUA + BOLD.toString() + "Game",15));
+        getScoreboard().addLabel(new BasicLabel(gameMeta.name(),14));
+        getScoreboard().addLabel(new BlankLabel(13));
+        getScoreboard().addLabel(new BasicLabel(YELLOW + BOLD.toString() + "Map", 12));
+        getScoreboard().addLabel(new BasicLabel("Map loading...", 11));
     }
     @Setter @Getter private Map map;
     @Setter @Getter private GameMeta gameMeta;
@@ -48,6 +60,7 @@ public abstract class GameModule extends ScoreboardModule {
             p.setAllowFlight(false);
             p.teleport(Minigames.getMinigames().getLobby());
             p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+            p.getInventory().clear();
             Bukkit.getOnlinePlayers().forEach(oPlayer -> oPlayer.showPlayer(p)); //Ew but not sure how else to do it D:
         });
         PlayerRegistery.getPlayers().forEach(g -> {
@@ -65,5 +78,9 @@ public abstract class GameModule extends ScoreboardModule {
 
     public void load() {
         map = MapLoader.get().loadRandomMap(gameMeta.name());
+        ScoreboardLabel label = getScoreboard().getLabel(11);
+        getScoreboard().removeLabel(label);
+        label.setText(getMap().getName());
+        getScoreboard().addLabel(label);
     }
 }

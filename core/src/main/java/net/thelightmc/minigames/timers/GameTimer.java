@@ -26,18 +26,6 @@ public class GameTimer implements Runnable {
             return;
         }
         if (ctr == RESET_TIME) {
-            if (gameModule.getGameMeta() == null) {
-                Bukkit.broadcastMessage("null");
-                return;
-            }
-            if (gameModule.getGameMeta().name() == null) {
-                Bukkit.broadcastMessage("null name");
-                return;
-            }
-            if (gameModule.getMap() == null) {
-                Bukkit.broadcastMessage("mofo");
-                return;
-            }
             Bukkit.broadcastMessage(Language.GAME_INFO_ANNOUNCEMENT.getMsg().replace("{GAME_NAME}",gameModule.getGameMeta().name()).replace("{MAP_NAME}",gameModule.getMap().getName()));
             gameModule.sendScoreboard();
         }
@@ -54,6 +42,10 @@ public class GameTimer implements Runnable {
         if (ctr % 10 == 0 || ctr <= 3) {
             Bukkit.broadcastMessage(Language.TIMER_REMAINING.getMsg().replace("{REMAINING}",String.valueOf(ctr)));
         }
+    }
+
+    public void setTime(int time) {
+        this.ctr = time;
     }
     /*
         gameModule = minigame.getGameModule();

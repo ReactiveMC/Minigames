@@ -1,6 +1,7 @@
 package net.thelightmc.minigames.commands.sub;
 
 import net.thelightmc.minigames.Minigames;
+import net.thelightmc.minigames.commands.PermissionLevel;
 import net.thelightmc.minigames.commands.SubCommand;
 import net.thelightmc.minigames.listeners.EditListener;
 import net.thelightmc.minigames.player.GamePlayer;
@@ -12,6 +13,7 @@ public class CmdCancel extends SubCommand {
     public CmdCancel(EditListener editListener) {
         super("cancel");
         this.editListener = editListener;
+        this.setPermissionLevel(PermissionLevel.ADMIN);
     }
     @Override
     protected void execute(String[] args, GamePlayer gamePlayer) {

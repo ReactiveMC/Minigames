@@ -10,11 +10,11 @@ import java.io.File;
 public enum Language {
     GAME_STARTING("&f&lThe game is now starting. Game on!!"),
     GAME_INFO_ANNOUNCEMENT("&f&lNow starting &6&l{GAME_NAME} &f&lon &6&l{MAP_NAME}"),
-    SCOREBOARD_TITLE("&f&lMinigames"),
+    SCOREBOARD_TITLE("Minigames"),
     TIMER_REMAINING("&f&lThe next game is starting in &6&l{REMAINING} &f&lseconds."),
     ADDED_TO_TEAM("&eYou have been added to the {TEAM_NAME} team."),
-    PLAYER_WON("&a&n--------------------------------\n\n&c&lThe player &6&l{PLAYER_NAME} &c&lhas won!\n\n&a&n--------------------------------"),
-    TEAM_WON("&a&n--------------------------------\n\n&c&lThe team {TEAM_NAME} &c&lhas won!\n\n&a&n--------------------------------");
+    PLAYER_WON("&a&m--------------------------------\n\n&c&lThe player &6&l{PLAYER_NAME} &c&lhas won!\n\n&a&m--------------------------------"),
+    TEAM_WON("&a&m--------------------------------\n\n&c&lThe team {TEAM_NAME} &c&lhas won!\n\n&a&m--------------------------------");
     public enum Tag {
         GAME_NAME,MAP_NAME;
         private String getReplacement() {
