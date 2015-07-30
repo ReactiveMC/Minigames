@@ -46,7 +46,6 @@ public class TDMListener extends GameListener {
 
     @Override
     public DeathResult onDeath(Player player) {
-        PlayerRegistery.getPlayer(player).removeFromGame();
-        return DeathResult.HANDLED;
+        return DeathResult.SPECTATOR;
     }
 }

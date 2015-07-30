@@ -1,7 +1,7 @@
 package net.thelightmc.minigames.player;
 
 import net.thelightmc.minigames.game.GameModule;
-import net.thelightmc.minigames.team.Team;
+import net.thelightmc.minigames.team.GameTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -13,7 +13,7 @@ public class GamePlayer {
     private GameModule game;
     private boolean editing;
     private final String name;
-    private Team team;
+    private GameTeam team;
 
     public GamePlayer(UUID uuid) {
         this.uuid = uuid;
@@ -57,11 +57,11 @@ public class GamePlayer {
         return name;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(GameTeam team) {
         this.team = team;
     }
 
-    public Team getTeam() {
+    public GameTeam getTeam() {
         return team;
     }
 }

@@ -72,9 +72,7 @@ public abstract class GameModule extends ScoreboardModule {
         setRunning(false);
     }
 
-    public void removePlayer(GamePlayer gamePlayer) {
-        new Spectator(gamePlayer);
-    }
+    public void removePlayer(GamePlayer gamePlayer) {}
 
     public void load() {
         map = MapLoader.get().loadRandomMap(gameMeta.name());

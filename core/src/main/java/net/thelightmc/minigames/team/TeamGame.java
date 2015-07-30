@@ -1,11 +1,11 @@
 package net.thelightmc.minigames.team;
 
+import net.thelightmc.minigames.exceptions.GameException;
 import net.thelightmc.minigames.game.GameModule;
 import net.thelightmc.minigames.lang.Language;
 import net.thelightmc.minigames.player.GamePlayer;
 import net.thelightmc.minigames.player.PlayerRegistery;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -13,32 +13,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TeamGame extends GameModule {
-    private final List<Team> teams;
+    private final List<GameTeam> teams;
 
-    protected TeamGame(int teams) {
+    protected TeamGame() {
         super();
-        this.teams = new ArrayList<>(teams);
-        for (int i = 1; i < teams+1; i++) {
-            this.teams.add(new Team(ChatColor.values()[i],getScoreboard().getScoreboard()));
-        }
+        this.teams = new ArrayList<>();
     }
 
-    public List<Team> getTeams() {
+    public List<GameTeam> getTeams() {
         return teams;
     }
 
     private void assignTeam(GamePlayer player) {
-        Team lowest = teams.get(0);
-        for (int i = 1; i < teams.size(); i++) {
-            if (lowest.getSize() > teams.get(i).getSize()) {
-                lowest = teams.get(i);
+        GameTeam lowest = null;
+        for (GameTeam team : teams) {
+            if (lowest == null || lowest.getSize() > team.getSize()) {
+                lowest = team;
+            }
+        }
+        if (lowest == null) {
+            try {
+                throw new GameException("You need to register teams for a team game.");
+            } catch (GameException e) {
+                e.printStackTrace();
+                return;
             }
         }
         lowest.addPlayer(player);
     }
-    public abstract Team checkEnd();
+    public abstract GameTeam checkEnd();
 
-    public void setWinner(Team team) {
+    public void setWinner(GameTeam team) {
         Bukkit.broadcastMessage(Language.TEAM_WON.getMsg().replace("{TEAM_NAME}", team.getName()));
         endGame();
     }
@@ -46,17 +51,9 @@ public abstract class TeamGame extends GameModule {
     @Override
     public void removePlayer(GamePlayer gamePlayer) {
         super.removePlayer(gamePlayer);
-        Team team = gamePlayer.getTeam();
+        GameTeam team = gamePlayer.getTeam();
         team.removePlayer(gamePlayer);
         if (checkEnd() != null) {setWinner(checkEnd());}
-    }
-
-    @Override
-    public void load() {
-        super.load();
-        for (int i = 0; i < teams.size(); i++) {
-            teams.get(i).setSpawn(getMap().getSpawnPoints().get(i));
-        }
     }
 
     @Override
@@ -82,6 +79,6 @@ public abstract class TeamGame extends GameModule {
     @Override
     public void endGame() {
         super.endGame();
-        teams.forEach(Team::destroy);
+        teams.forEach(GameTeam::destroy);
     }
 }

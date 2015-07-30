@@ -12,7 +12,7 @@ public final class GameLocation implements Serializable {
     private final int x;
     private final int y;
     private final int z;
-    private final static String worldName = "GameWorld";
+    private final static String WORLD_NAME = "GameWorld";
 
     public GameLocation(Location location) {
         this.location = location;
@@ -22,7 +22,7 @@ public final class GameLocation implements Serializable {
     }
     public Location getLocation() {
         if (location == null) {
-            location = new Location(Bukkit.getWorld(worldName),x,y,z);
+            location = new Location(Bukkit.getWorld(WORLD_NAME),x,y,z);
         }
         return location;
     }

@@ -75,9 +75,11 @@ public abstract class GameListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.setDeathMessage("");
         switch (onDeath(event.getEntity())) {
+            case SPECTATOR:
+                new Spectator(PlayerRegistery.getPlayer(event.getEntity()));
+            case RESPAWN: //TODO: Add more stuff to this but currently handled by other listeners
             case HANDLED:
-                return;
-            case RESPAWN:
+            default:
                 break;
         }
     }
@@ -101,8 +103,8 @@ public abstract class GameListener implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         GamePlayer player = PlayerRegistery.getPlayer(event.getPlayer());
-        if (Spectator.isSpectating(player)) {
-            event.setRespawnLocation(player.getGame().getMap().getRandomSpawn());
+        if (player.getGame() != null) {
+            event.setRespawnLocation(player.getTeam() == null ? player.getGame().getMap().getRandomSpawn() : player.getTeam().getSpawn().getLocation());
         }
     }
 
@@ -111,6 +113,6 @@ public abstract class GameListener implements Listener {
     }
 
     public enum DeathResult {
-        HANDLED,RESPAWN
+        HANDLED,RESPAWN,SPECTATOR;
     }
 }

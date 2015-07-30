@@ -30,7 +30,6 @@ public class SpleggGame extends GameModule {
 
     @Override
     public void removePlayer(GamePlayer gamePlayer) {
-        new Spectator(gamePlayer);
         remainingPlayers--;
         checkEnd();
     }
