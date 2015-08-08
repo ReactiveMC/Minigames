@@ -36,9 +36,14 @@
             <artifactId>splegg</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>net.thelightmc.minigames</groupId>
+            <artifactId>runner</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>Minigames-final</finalName>
         <!-- Resources -->
         <resources>
             <resource>

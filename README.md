@@ -6,6 +6,7 @@
 * Splegg
 * OITC
 * Skywars (More will be added to it)
+* Runner
 
 #### Todo: 
 * Classes

@@ -17,6 +17,7 @@
         <module>skywars</module>
         <module>splegg</module>
         <module>plugin</module>
+        <module>runner</module>
     </modules>
     <repositories>
         <repository>
@@ -52,6 +53,10 @@
             <id>TheLightMC</id>
             <name>Nathan</name>
         </developer>
+        <developer>
+            <id>nightdevel</id>
+            <name>Night</name>
+        </developer>
     </developers>
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -61,6 +66,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
+                    <source>1.8</source>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
