@@ -5,7 +5,7 @@
 * TDM
 * Splegg
 * OITC
-* Skywars (More will be added to it)
+* SkyWars (More will be added to it)
 * Runner
 
 #### Todo: 
@@ -17,7 +17,7 @@
 * Map editing/Creation
 * Scoreboards
 * Language file
-* Player wrapper/registery (If anyone really cares about this)
+* Player wrapper/registry (If anyone really cares about this)
 * Scoring
 * Scoreboard updating
 * Teams
@@ -34,4 +34,5 @@
 3. Put the jar into the server.
 4. Install a template map into the plugins/Minigames folder (Optional)
 5. Restart/reload the server
+6. Have fun :D
 ```
