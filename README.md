@@ -4,10 +4,10 @@
 * Spleef
 * TDM
 * Splegg
+* OITC
+* Skywars (More will be added to it)
 
 #### Todo: 
-* OITC (In Progress)
-* Skywars (In Progress)
 * Classes
 
 ### Completed:
